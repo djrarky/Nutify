@@ -1,0 +1,8 @@
+VERSION = 0.1.0
+LAST_UPDATE = 06/03/2025
+STATUS = Internal Testing
+
+CHANGELOG = """
+[05/03/2025]
+- First version of Nutify
+"""
