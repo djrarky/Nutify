@@ -32,7 +32,7 @@ Nutify is available for multiple hardware platforms through Docker images:
 |--------------|------------------|---------|
 | 🖥️ **AMD64/x86_64** | `dartsteven/nutify:amd64-0.1.0` | Standard PCs, servers, most cloud VMs |
 | 🍓 **ARM64/aarch64** | `dartsteven/nutify:arm64-0.1.0` | Raspberry Pi 4, Pi 400, Compute Module 4, Apple M1/M2 Macs |
-| 🍓 **ARMv7/armhf** | `dartsteven/nutify:armv7-0.1.0` | Raspberry Pi 2/3, older ARM-based devices |
+| 🍓 **ARMv7/armhf** | `dartsteven/nutify:armv7-0.1.0` | Raspberry Pi 2/3, older ARM-based devices | -> Not yet ready!
 
 To use a specific architecture, simply modify the `image` line in your `docker-compose.yaml` file:
 
