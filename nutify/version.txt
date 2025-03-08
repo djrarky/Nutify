@@ -1,0 +1,42 @@
+VERSION = 0.1.2
+LAST_UPDATE = 08/03/2025
+STATUS = Testing
+
+CHANGELOG = """
+[08/03/2025]
+- Added international time format support with robust parsing for AM/PM notation
+- Added enhanced service summary at container startup
+- Improved default values for all configuration parameters
+- Simplified UPS authentication with automatic credential reuse
+- Clearly marked required parameters in configuration
+- Enhanced documentation in docker-compose.yaml
+- Added support for 'latest' Docker image tags (amd64-latest, arm64-latest, armv7-latest)
+- Updated documentation to reflect the new tagging system
+- Enhanced Docker Hub integration with automatic latest tag updates
+- Simplified deployment with always-updated images
+
+[08/03/2025]
+- Added automatic SSL certificate generation and management
+- Added SSL configuration options in docker-compose.yaml
+- Implemented secure HTTPS connections when SSL_ENABLED=true
+- Fixed permissions for SSL certificates and directory
+- Fixed Dockerfile build error by creating SSL directory instead of copying from non-existent source
+- Fixed dummy UPS fallback to only activate when USE_DUMMY_UPS=true
+- Added gunicorn with eventlet worker for robust SSL support
+- Improved SSL handling with dynamic WSGI file generation
+
+[07/03/2025]
+- Added automatic check and fix for SQLite database permissions
+- Improved templates to handle missing data correctly
+- Added existence checks for all fields in templates (battery.html, power.html, energy.html, header.html)
+- Fixed "sqlite3.OperationalError: attempt to write a readonly database" error
+- Enhanced error handling for UPS devices that don't provide all standard data
+- Modified Dockerfile to add nut user to necessary groups (plugdev, dialout, input, usb)
+- Added dummy UPS configuration file for fallback when no physical UPS is detected
+- Enabled startup and debug logging by default
+- Added netclient for remote UPS monitoring
+- Simplified UPS verification method
+
+[05/03/2025]
+- First version of Nutify
+"""

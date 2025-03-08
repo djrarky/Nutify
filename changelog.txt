@@ -1,0 +1,42 @@
+# Nutify Changelog
+
+## Version 0.1.2 (08/03/2025)
+
+* **International Time Format Support**: Added robust time parsing to support various international time formats including AM/PM notation.
+* **Enhanced Startup Summary**: Added a clear service summary at container startup showing configuration status, UPS service status, and web interface access URL.
+* **Improved Default Values**: Added sensible default values for all configuration parameters in docker-compose.yaml with clear documentation.
+* **Simplified UPS Authentication**: UPSCMD_USER and UPSCMD_PASSWORD now automatically use UPS_USER and UPS_PASSWORD values if not specified.
+* **Required Parameters Highlighting**: Clearly marked required parameters like ENCRYPTION_KEY in the configuration.
+* **Improved Documentation**: Enhanced comments in docker-compose.yaml for better user experience.
+
+
+## Version 0.1.1 (08/03/2025)
+
+* **Automatic Database Management**: Added automatic check and fix for SQLite database permissions to prevent read-only database errors.
+* **Improved Error Handling**: Enhanced templates to handle missing data correctly with existence checks for all fields.
+* **UPS Compatibility**: Improved support for UPS devices that don't provide all standard data fields.
+* **Security Enhancements**: Modified Dockerfile to add the nut user to necessary groups (plugdev, dialout, input, usb) for proper device access.
+* **Fallback Mechanism**: Added dummy UPS configuration for testing or when no physical UPS is detected.
+* **Remote Monitoring**: Added netclient support for remote UPS monitoring.
+* **SSL Support**: Added automatic SSL certificate generation and management for secure HTTPS connections.
+* **Improved Logging**: Enabled startup and debug logging by default for better troubleshooting.
+* **Build Fixes**: Fixed Dockerfile to properly create SSL directory instead of copying from non-existent source.
+* **Dummy UPS Control**: Fixed dummy UPS fallback to only activate when explicitly enabled.
+* **Robust SSL Implementation**: Added gunicorn with eventlet worker for production-grade SSL support.
+
+## Version 0.1.0 (07/03/2025)
+
+* Added automatic check and fix for SQLite database permissions
+* Improved templates to handle missing data correctly
+* Added existence checks for all fields in templates (battery.html, power.html, energy.html, header.html)
+* Fixed "sqlite3.OperationalError: attempt to write a readonly database" error
+* Enhanced error handling for UPS devices that don't provide all standard data
+* Modified Dockerfile to add nut user to necessary groups (plugdev, dialout, input, usb)
+* Added dummy UPS configuration file for fallback when no physical UPS is detected
+* Enabled startup and debug logging by default
+* Added netclient for remote UPS monitoring
+* Simplified UPS verification method
+
+## Version 0.0.1 (05/03/2025)
+
+* First version of Nutify 
