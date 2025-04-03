@@ -1,0 +1,112 @@
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+<div class="content">
+    <div class="content-header">
+        <h1>WebSocket Test</h1>
+        <p class="section-description">This page demonstrates real-time data updates using the WebSocket connection.</p>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>WebSocket Status</h2>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="me-2">Connection Status:</span>
+                        <span id="connectionStatus" class="badge bg-danger">Disconnected</span>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button id="reconnectButton" class="btn btn-primary">
+                            <i class="fas fa-sync"></i> Reconnect
+                        </button>
+                        <button id="requestDataButton" class="btn btn-secondary">
+                            <i class="fas fa-download"></i> Request Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Last Received Data</h2>
+                </div>
+                <div class="card-body">
+                    <pre id="lastData" class="code-block">No data received yet.</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusElement = document.getElementById('connectionStatus');
+        const reconnectButton = document.getElementById('reconnectButton');
+        const requestDataButton = document.getElementById('requestDataButton');
+        const lastDataElement = document.getElementById('lastData');
+        
+        // Initialize the WebSocket manager
+        const webSocketManager = new CacheWebSocketManager({
+            onUpdate: function(data) {
+                // Update the data display
+                lastDataElement.textContent = JSON.stringify(data, null, 2);
+                
+                // Flash the status element to indicate data received
+                statusElement.classList.add('bg-info');
+                setTimeout(() => {
+                    statusElement.classList.remove('bg-info');
+                    statusElement.classList.add(webSocketManager.isConnected ? 'bg-success' : 'bg-danger');
+                }, 500);
+            },
+            onConnect: function() {
+                // Update connection status
+                statusElement.textContent = 'Connected';
+                statusElement.classList.remove('bg-danger');
+                statusElement.classList.add('bg-success');
+                
+                // Log the connection
+                console.log('WebSocket connected');
+            },
+            onDisconnect: function() {
+                // Update connection status
+                statusElement.textContent = 'Disconnected';
+                statusElement.classList.remove('bg-success');
+                statusElement.classList.add('bg-danger');
+                
+                // Log the disconnection
+                console.log('WebSocket disconnected');
+            },
+            debug: true // Enable debug logging
+        });
+        
+        // Handle reconnect button
+        reconnectButton.addEventListener('click', function() {
+            // If using the actual CacheWebSocketManager
+            if (webSocketManager.socket) {
+                webSocketManager.socket.connect();
+                console.log('Manual reconnection attempt');
+            } else {
+                console.log('No socket available for reconnection');
+            }
+        });
+        
+        // Handle request data button
+        requestDataButton.addEventListener('click', function() {
+            if (webSocketManager.requestCacheData) {
+                webSocketManager.requestCacheData();
+                console.log('Manually requested cache data');
+            } else {
+                console.log('Cannot request cache data');
+            }
+        });
+    });
+</script>
+{% endblock %} 

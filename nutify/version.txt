@@ -1,0 +1,77 @@
+VERSION = 0.1.4
+LAST_UPDATE = 03/04/2025
+STATUS = Testing
+
+CHANGELOG = """
+[03/04/2025]  0.1.4
+- Restructured codebase into modular Python packages for improved maintainability
+- Migrated database operations to pure ORM for better data management
+- Added Ntfy integration for push notifications
+- Added Webhook support for third-party integrations
+- Added Advanced section for NUT configuration and polling settings
+- Reorganized JavaScript code into modular components for better organization
+- Enhanced options page with specialized modules for each configuration section
+- Improved database integrity checks and model relationships
+- Added event-based notification system with customizable triggers
+- Enhanced socket communication with improved reliability
+- Modernized UI components and responsive design
+- Added detailed logging controls in Advanced settings
+- Optimized backend performance with improved caching strategy
+- Enhanced email notification system with multiple account support
+- Added streamlined provider configuration for easier email setup
+- Added official Nutify logo and favicon for improved branding
+- Completely redesigned event polling mechanism: replaced direct upsmon.conf queries with native Python integration
+- Implemented WebSocket-based caching for real-time data, significantly reducing CPU and RAM usage
+
+[10/03/2025]  0.1.3
+- Enhanced CLIENT mode reliability with multi-layered detection:
+- Improved service monitoring in CLIENT mode
+- Updated documentation with comprehensive CLIENT mode information
+- Improved CLIENT mode functionality
+- Updated documentation with clearer CLIENT mode setup instructions
+- Added more comprehensive error messages for improved troubleshooting
+- Expanded UPS driver support to include multiple specialized drivers
+- Optimized driver build configuration for improved compilation stability
+- Updated documentation to reflect the expanded driver support
+- Added comprehensive guidance on selecting the appropriate driver for different UPS models
+- Added operational mode selection with new NUT_TYPE variable
+- Implemented automatic configuration based on selected mode
+- Added flag file mechanism to indicate client mode to all scripts
+- Enhanced documentation with detailed explanations of both modes
+- Improved user experience with clearer configuration options
+
+[08/03/2025] 0.1.2
+- Added international time format support with robust parsing for AM/PM notation
+- Added enhanced service summary at container startup
+- Improved default values for all configuration parameters
+- Simplified UPS authentication with automatic credential reuse
+- Clearly marked required parameters in configuration
+- Enhanced documentation in docker-compose.yaml
+- Added support for 'latest' Docker image tags (amd64-latest, arm64-latest, armv7-latest)
+- Updated documentation to reflect the new tagging system
+- Enhanced Docker Hub integration with automatic latest tag updates
+- Simplified deployment with always-updated images
+- Added automatic SSL certificate generation and management
+- Added SSL configuration options in docker-compose.yaml
+- Implemented secure HTTPS connections when SSL_ENABLED=true
+- Fixed permissions for SSL certificates and directory
+- Fixed Dockerfile build error by creating SSL directory instead of copying from non-existent source
+- Fixed dummy UPS fallback to only activate when USE_DUMMY_UPS=true
+- Added gunicorn with eventlet worker for robust SSL support
+- Improved SSL handling with dynamic WSGI file generation
+
+[07/03/2025] 0.1.1
+- Added automatic check and fix for SQLite database permissions
+- Improved templates to handle missing data correctly
+- Added existence checks for all fields in templates (battery.html, power.html, energy.html, header.html)
+- Fixed "sqlite3.OperationalError: attempt to write a readonly database" error
+- Enhanced error handling for UPS devices that don't provide all standard data
+- Modified Dockerfile to add nut user to necessary groups (plugdev, dialout, input, usb)
+- Added dummy UPS configuration file for fallback when no physical UPS is detected
+- Enabled startup and debug logging by default
+- Added netclient for remote UPS monitoring
+- Simplified UPS verification method
+
+[05/03/2025] 0.1.0
+- First version of Nutify
+"""
