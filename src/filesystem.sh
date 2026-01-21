@@ -116,21 +116,22 @@ detect_usb_devices() {
 
 # Function to fix USB permissions if applicable
 fix_usb_permissions() {
-    if [ "${SKIP_PERMCHECK}" = "true" ]; then
-        startup_log "Skipping USB permission updates (SKIP_PERMCHECK=true)"
-        return 0
-    fi
-
-    if [ -d "/dev/bus/usb" ]; then
-        # First set ownership to root:nut for good measure
-        chown -R root:nut /dev/bus/usb
-        # Now grant read-write to all users (old method that worked better)
-        chmod -R o+rw /dev/bus/usb 2>/dev/null
-        startup_log "USB device permissions updated (all users access granted)"
-    else
-        startup_log "WARNING: Directory /dev/bus/usb not found!"
-    fi
-    
+    case "${SKIP_PERMCHECK,,}" in
+        true|1|yes)
+            startup_log "Skipping USB permission updates (SKIP_PERMCHECK=${SKIP_PERMCHECK})"
+            ;;
+        *)
+            if [ -d "/dev/bus/usb" ]; then
+                # First set ownership to root:nut for good measure
+                chown -R root:nut /dev/bus/usb
+                # Now grant read-write to all users (old method that worked better)
+                chmod -R o+rw /dev/bus/usb 2>/dev/null
+                startup_log "USB device permissions updated (all users access granted)"
+            else
+                startup_log "WARNING: Directory /dev/bus/usb not found!"
+            fi
+            ;;
+    esac
     # Set the suid bit on the nut commands
     chmod u+s /usr/bin/upsc /usr/bin/upscmd /usr/bin/upsrw 2>/dev/null
     if [ "$ENABLE_LOG_STARTUP" = "Y" ]; then
