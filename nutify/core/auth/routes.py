@@ -126,10 +126,10 @@ def setup():
 @auth_bp.route('/admin', methods=['GET', 'POST'])
 def admin():
     """Admin panel for managing login credentials"""
-     if is_auth_disabled():
+    if is_auth_disabled():
         flash('Authentication is disabled', 'info')
         return redirect(url_for('index'))
-   # Check if user is authenticated
+    # Check if user is authenticated
     if not is_authenticated():
         return redirect(url_for('auth.login', next=request.url))
     
@@ -319,7 +319,7 @@ def api_logout():
 @auth_bp.route('/api/change-password', methods=['POST'])
 def api_change_password():
     """API endpoint for changing password"""
-   if is_auth_disabled():
+    if is_auth_disabled():
         return jsonify({'error': 'Authentication is disabled'}), 403
     if not is_authenticated():
         return jsonify({'error': 'Authentication required'}), 401
