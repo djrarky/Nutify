@@ -8,11 +8,21 @@ It handles login/logout, session management, and authentication decorators.
 from functools import wraps
 from flask import session, request, jsonify, redirect, url_for, current_app, render_template
 from typing import Optional, Dict, Any
+import os
 import secrets
 
 # These will be set during initialization
 LoginAuth = None
 logger = None
+
+def _get_env_flag(name: str) -> bool:
+    """Check if an environment variable is set to a truthy value."""
+    value = os.getenv(name, '').strip().lower()
+    return value in {'1', 'true', 'yes', 'on'}
+
+def is_auth_disabled() -> bool:
+    """Check if authentication is disabled via environment variable."""
+    return _get_env_flag('DISABLE_AUTH')
 
 def init_auth_module(login_model, auth_logger=None):
     """
@@ -36,6 +46,8 @@ def is_authenticated() -> bool:
     Returns:
         bool: True if user is authenticated, False otherwise
     """
+    if is_auth_disabled():
+        return True
     return 'user_id' in session and 'username' in session
 
 def get_current_user() -> Optional[Dict[str, Any]]:
@@ -45,6 +57,13 @@ def get_current_user() -> Optional[Dict[str, Any]]:
     Returns:
         dict: User information if authenticated, None otherwise
     """
+    if is_auth_disabled():
+        return {
+            'id': 1,
+            'username': 'admin',
+            'last_login': None,
+            'role': 'administrator'
+        }
     if not is_authenticated():
         return None
     
