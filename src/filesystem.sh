@@ -116,6 +116,11 @@ detect_usb_devices() {
 
 # Function to fix USB permissions if applicable
 fix_usb_permissions() {
+    if [ "${SKIP_PERMCHECK}" = "true" ]; then
+        startup_log "Skipping USB permission updates (SKIP_PERMCHECK=true)"
+        return 0
+    fi
+
     if [ -d "/dev/bus/usb" ]; then
         # First set ownership to root:nut for good measure
         chown -R root:nut /dev/bus/usb

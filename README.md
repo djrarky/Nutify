@@ -154,7 +154,7 @@ services:
       - /dev:/dev:rw              # Full /dev access improves hotplug handling
       - /run/udev:/run/udev:ro    # Access to udev events
     environment:
-
+    # - SKIP_PERMCHECK            # Skip USB permission change for rootless implementations
       - SECRET_KEY=test1234567890 # for password encryption and decryption in the database
       - UDEV=1                    # Improve USB detection
     ports:
