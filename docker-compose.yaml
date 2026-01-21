@@ -21,19 +21,19 @@ services:
       - /run/udev:/run/udev:ro    # Access to udev events
     environment:
       # ===== SERVER CONFIGURATION =====
-      - SERVER_PORT=5050
-      - SERVER_HOST=0.0.0.0
+      SERVER_PORT: "5050"
+      SERVER_HOST: "0.0.0.0"
       # ===== AUTH CONFIGURATION =====
-      # - DISABLE_AUTH=true
-      # - SKIP_PERMCHECK=true
+      # DISABLE_AUTH: "true"
+      # SKIP_PERMCHECK: "true"
       # ===== LOGGING CONFIGURATION =====
-      - LOG=true
-      - LOG_LEVEL=DEBUG
-      - LOG_WERKZEUG=true
-      - ENABLE_LOG_STARTUP=Y
-      - SSL_ENABLED=false
-      - SECRET_KEY=test1234567890 # for password encryption and decryption in the database
-      - UDEV=1                    # Improve USB detection
+      LOG: "true"
+      LOG_LEVEL: "DEBUG"
+      LOG_WERKZEUG: "true"
+      ENABLE_LOG_STARTUP: "Y"
+      SSL_ENABLED: "false"
+      SECRET_KEY: "test1234567890" # for password encryption and decryption in the database
+      UDEV: "1"                    # Improve USB detection
     ports:
       - 3493:3493
       - 5050:5050
