@@ -170,10 +170,10 @@ services:
       - /dev:/dev:rw              # Full /dev access improves hotplug handling
       - /run/udev:/run/udev:ro    # Access to udev events
     environment:
-    # - DISABLE_AUTH=true         # Disable the login system (no login prompt, permissions bypassed)
-    # - SKIP_PERMCHECK=true       # Skip USB permission change for rootless implementations
-      - SECRET_KEY=test1234567890 # for password encryption and decryption in the database
-      - UDEV=1                    # Improve USB detection
+      # DISABLE_AUTH: "true"         # Disable the login system (no login prompt, permissions bypassed)
+      # SKIP_PERMCHECK: "true"       # Skip USB permission change for rootless implementations
+      SECRET_KEY: "test1234567890"   # for password encryption and decryption in the database
+      UDEV: "1"                      # Improve USB detection
     ports:
       - 3493:3493
       - 5050:5050
