@@ -82,6 +82,9 @@ def is_admin() -> bool:
     Returns:
         bool: True if current user is admin, False otherwise
     """
+    if is_auth_disabled():
+        return True
+
     if not is_authenticated():
         return False
     
@@ -144,6 +147,9 @@ def require_auth(f):
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        if is_auth_disabled():
+            return f(*args, **kwargs)
+
         # First check if login system is configured
         if not is_login_configured():
             if request.is_json:
@@ -171,6 +177,9 @@ def require_auth_json(f):
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        if is_auth_disabled():
+            return f(*args, **kwargs)
+
         # First check if login system is configured
         if not is_login_configured():
             return jsonify({'error': 'Login system not configured'}), 503
@@ -192,6 +201,9 @@ def require_admin(f):
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        if is_auth_disabled():
+            return f(*args, **kwargs)
+
         # First check if login system is configured
         if not is_login_configured():
             if request.is_json:
@@ -227,6 +239,9 @@ def require_permission(page_name):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
+            if is_auth_disabled():
+                return f(*args, **kwargs)
+
             # First check if login system is configured
             if not is_login_configured():
                 if request.is_json:
@@ -312,6 +327,9 @@ def is_login_configured() -> bool:
     Returns:
         bool: True if login is configured, False otherwise
     """
+    if is_auth_disabled():
+        return True
+
     if not LoginAuth:
         if logger:
             logger.debug("🔐 LoginAuth model not initialized - login not configured")
