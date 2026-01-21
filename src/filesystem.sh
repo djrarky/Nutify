@@ -119,6 +119,9 @@ fix_usb_permissions() {
     case "${SKIP_PERMCHECK,,}" in
         true|1|yes)
             startup_log "Skipping USB permission updates (SKIP_PERMCHECK=${SKIP_PERMCHECK})"
+            if [ "$ENABLE_LOG_STARTUP" = "Y" ]; then
+                startup_log "Skipping SUID permissions for NUT commands (SKIP_PERMCHECK=${SKIP_PERMCHECK})"
+            fi
             ;;
         *)
             if [ -d "/dev/bus/usb" ]; then
@@ -130,13 +133,14 @@ fix_usb_permissions() {
             else
                 startup_log "WARNING: Directory /dev/bus/usb not found!"
             fi
+
+            # Set the suid bit on the nut commands
+            chmod u+s /usr/bin/upsc /usr/bin/upscmd /usr/bin/upsrw 2>/dev/null
+            if [ "$ENABLE_LOG_STARTUP" = "Y" ]; then
+                startup_log "Set suid permissions for NUT commands"
+            fi
             ;;
     esac
-    # Set the suid bit on the nut commands
-    chmod u+s /usr/bin/upsc /usr/bin/upscmd /usr/bin/upsrw 2>/dev/null
-    if [ "$ENABLE_LOG_STARTUP" = "Y" ]; then
-        startup_log "Set suid permissions for NUT commands"
-    fi
 }
 
 # Clean up existing PID files to prevent conflicts
